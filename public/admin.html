@@ -1,0 +1,229 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CRM Niterói | Gestão de Demandas</title><style>
+:root{--navy:#142b49;--blue:#2363a5;--bg:#f3f6fa;--line:#e2e8f0;--muted:#64748b;--green:#12805c}*{box-sizing:border-box}body{margin:0;font:14px Inter,system-ui,Arial;background:var(--bg);color:#17283d}.shell{display:flex;min-height:100vh}.side{width:245px;background:linear-gradient(rgba(13,37,64,.82),rgba(13,37,64,.88)),url('/fundo-niteroi.jpg') center center/cover no-repeat;color:white;padding:24px 16px;display:flex;flex-direction:column;gap:22px}.brand{font-size:19px;font-weight:800;letter-spacing:.2px}.brand small{display:block;color:#a9bfd8;font-size:11px;font-weight:500;margin-top:5px}.nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#cbd7e5;padding:12px;border-radius:9px;margin:3px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#25476d;color:white}.sidefoot{margin-top:auto;color:#a9bfd8;font-size:11px;line-height:1.6}.main{flex:1;min-width:0}.top{height:70px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px}.top strong{font-size:15px}.content{padding:28px;max-width:1400px;margin:auto}.heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px}.heading h1{font-size:25px;margin:0 0 6px}.muted{color:var(--muted)}.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--blue);color:white;font-weight:650;cursor:pointer}.btn.secondary{background:white;color:#23405f;border:1px solid var(--line)}.btn.green{background:var(--green)}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:18px}.metric{font-size:27px;font-weight:800;margin:8px 0 3px}.metriclabel{font-size:12px;color:var(--muted)}.panel h3{margin:0 0 14px;font-size:15px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.field{border:1px solid #d5deea;border-radius:8px;padding:10px 11px;background:white;font:inherit;min-width:0;width:100%}.toolbar .field{max-width:260px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:760px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #edf1f5;font-size:13px;vertical-align:top}th{color:#607187;font-size:11px;text-transform:uppercase;letter-spacing:.4px}tr:last-child td{border:0}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:#edf3fa;color:#34516e;font-size:11px;font-weight:700}.pill.urgent{background:#fee9e7;color:#ad352c}.pill.done{background:#e5f5ee;color:#14744f}.pill.wait{background:#fff3d8;color:#8a5b08}.hidden{display:none!important}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgrid label{display:block;font-size:12px;color:#506176;margin-bottom:6px}.formgrid .full{grid-column:1/-1}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}.login{max-width:390px;margin:10vh auto;background:white;padding:28px;border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 40px #17385b12}.login h1{margin-top:0}.login label{display:block;margin:12px 0 6px;color:#506176;font-size:12px}.notice{padding:11px 13px;border-radius:8px;background:#eff6ff;color:#315579;font-size:12px;margin:12px 0}.empty{text-align:center;color:var(--muted);padding:30px}.rowactions{display:flex;gap:6px;flex-wrap:wrap}.rowactions select{max-width:145px;padding:6px;border:1px solid var(--line);border-radius:6px;background:white}@media(max-width:850px){.side{width:190px}.cards{grid-template-columns:repeat(2,1fr)}.content{padding:18px}.top{padding:0 18px}}@media(max-width:600px){.shell{display:block}.side{width:100%;padding:14px}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;width:auto}.sidefoot{display:none}.top{height:55px}.cards{grid-template-columns:1fr 1fr}.heading{display:block}.heading .btn{margin-top:12px}.formgrid{grid-template-columns:1fr}.formgrid .full{grid-column:auto}}
+</style></head><body><div id="login" class="login"><h1>CRM Niterói</h1><p class="muted">Acesso administrativo • Gestão de clientes e demandas</p><form id="loginForm"><label>Usuário</label><input class="field" name="username" value="admin" required><label>Senha</label><input class="field" type="password" name="password" required><div class="notice">A senha inicial deve ser alterada antes de disponibilizar o sistema na internet.</div><button class="btn" style="width:100%">Entrar no sistema</button><p id="loginError" style="color:#b42318"></p></form></div>
+<div id="app" class="shell hidden"><aside class="side"><div class="brand">CRM NITERÓI<small>Gestão de Clientes e Demandas</small></div><nav class="nav"><button class="active" data-page="dashboard">▦　Dashboard</button><button data-page="clients">♙　Clientes</button><button data-page="demands">▤　Demandas</button><button data-page="intake">↗　Formulário público</button><button data-page="backup">▣　Backup e Segurança</button><button data-page="users" id="usersNav">♙　Gestão de usuários</button><button data-page="password">🔑　Alterar minha senha</button></nav><div class="sidefoot">Sistema de controle interno<br>Não substitui os canais oficiais da Prefeitura.</div></aside><main class="main"><header class="top"><strong id="pageTitle">Dashboard</strong><div style="display:flex;align-items:center;gap:12px"><small id="currentUserLabel" class="muted"></small><button class="btn secondary" id="logout">Sair</button></div></header><div class="content">
+<section id="page-dashboard"><div class="heading"><div><h1>Visão geral</h1><div class="muted">Acompanhamento das solicitações registradas no CRM.</div></div><button class="btn" onclick="showPage('demands');openDemand()">+ Nova demanda</button></div><div class="cards" id="metrics"></div>
+<div class="panel" style="margin:18px 0">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div><h3 style="margin:0 0 5px">Clientes e demandas por região de Niterói</h3>
+    <div class="muted">Distribuição calculada automaticamente com base no bairro informado nos cadastros.</div></div>
+    <span class="pill">Dados do CRM</span>
+  </div>
+  <div id="regionalDashboard" style="margin-top:18px"></div>
+</div><div class="panel"><h3>Demandas recentes</h3><div class="tablewrap"><table><thead><tr><th>Protocolo interno</th><th>Cliente</th><th>Categoria</th><th>Bairro</th><th>Status</th><th>Prioridade</th></tr></thead><tbody id="recentRows"></tbody></table></div></div></section>
+<section id="page-clients" class="hidden"><div class="heading"><div><h1>Clientes</h1><div class="muted">Cadastro centralizado de cidadãos e organizações.</div></div><button class="btn" onclick="openClient()">+ Cadastrar cliente</button></div><div class="panel"><div class="toolbar"><input id="clientSearch" class="field" placeholder="Buscar por nome, telefone ou bairro..."><button class="btn secondary" onclick="document.getElementById('importFile').click()">Importar planilha CSV</button><input id="importFile" type="file" accept=".csv,text/csv" class="hidden"><button class="btn secondary" onclick="exportClients()">Exportar CSV</button></div><div class="notice">Para importar do Excel: abra a planilha e use Arquivo → Salvar como → CSV UTF-8 (delimitado por vírgulas). A importação aceita clientes e demandas na mesma linha.</div><p id="importResult" class="muted"></p><div class="tablewrap"><table><thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Bairro</th><th>Cadastro</th><th>Demandas</th><th>Ações</th></tr></thead><tbody id="clientRows"></tbody></table></div></div></section>
+<section id="page-demands" class="hidden"><div class="heading"><div><h1>Demandas</h1><div class="muted">Registro, encaminhamento e acompanhamento.</div></div><button class="btn" onclick="openDemand()">+ Nova demanda</button></div><div class="panel"><div class="toolbar"><input id="demandSearch" class="field" placeholder="Buscar protocolo, cliente ou assunto..."><select id="statusFilter" class="field"><option value="">Todos os status</option><option>Aberta</option><option>Em análise</option><option>Encaminhada</option><option>Em andamento</option><option>Aguardando retorno</option><option>Concluída</option><option>Cancelada</option></select><button class="btn secondary" onclick="exportDemands()">Exportar CSV</button></div><div class="tablewrap"><table><thead><tr><th>Protocolo</th><th>Cliente / assunto</th><th>Órgão</th><th>Bairro</th><th>Status</th><th>Prioridade</th><th>Atualizar</th></tr></thead><tbody id="demandRows"></tbody></table></div></div></section>
+<section id="page-intake" class="hidden"><div class="heading"><div><h1>Formulário de entrada</h1><div class="muted">Página pública para receber solicitações e alimentar este CRM.</div></div><a class="btn" href="/cadastro" target="_blank">Abrir formulário</a></div><div class="panel"><h3>Endereço do formulário</h3><p><code id="publicUrl"></code></p><p class="muted">Compartilhe este endereço por site, WhatsApp ou QR Code. Os cadastros enviados serão gravados no mesmo banco de dados deste sistema.</p><button class="btn secondary" onclick="copyPublic()">Copiar endereço</button><div class="notice">Antes de divulgar publicamente, configure HTTPS, senha administrativa forte, política de privacidade, backups e controles de acesso no servidor de hospedagem.</div></div></section>
+<section id="page-backup" class="hidden">
+<div class="heading"><div><h1>Backup e Segurança</h1><div class="muted">Proteja os dados de clientes, demandas e histórico do CRM.</div></div><button class="btn green" onclick="createBackupNow()">+ Criar backup agora</button></div>
+<div class="cards">
+<div class="card"><div class="metriclabel">Retenção</div><div class="metric">30 dias</div><div class="metriclabel">Backups automáticos e manuais</div></div>
+<div class="card"><div class="metriclabel">Clientes no banco</div><div class="metric" id="backupClients">0</div><div class="metriclabel">Registros atuais</div></div>
+<div class="card"><div class="metriclabel">Demandas no banco</div><div class="metric" id="backupDemands">0</div><div class="metriclabel">Registros atuais</div></div>
+<div class="card"><div class="metriclabel">Último backup</div><div class="metric" id="backupLast">—</div><div class="metriclabel">Data e horário</div></div>
+</div>
+<div class="panel">
+<h3>Backup manual</h3>
+<p class="muted">Crie uma cópia imediata do banco e baixe um arquivo JSON para guardar fora do computador.</p>
+<div class="toolbar"><button class="btn" onclick="downloadBackup()">Baixar backup completo (.json)</button><button class="btn secondary" onclick="loadBackups()">Atualizar histórico</button></div>
+<div class="notice">O backup automático é executado diariamente enquanto o servidor estiver ligado. São mantidos os últimos 30 dias no computador. Para maior segurança, baixe cópias externas periodicamente.</div>
+</div>
+<div class="panel" style="margin-top:16px">
+<h3>Restaurar backup</h3>
+<p class="muted">Selecione um arquivo JSON de backup gerado por este CRM. Antes de restaurar, o sistema cria uma cópia de segurança do banco atual.</p>
+<div class="toolbar"><input id="restoreFile" class="field" type="file" accept=".json,application/json"><button class="btn secondary" onclick="restoreBackup()">Validar e restaurar</button></div>
+<p id="restoreResult" class="muted"></p>
+</div>
+<div class="panel" style="margin-top:16px">
+<h3>Histórico de backups</h3>
+<div class="tablewrap"><table style="min-width:560px"><thead><tr><th>Arquivo</th><th>Data</th><th>Tipo</th><th>Clientes</th><th>Demandas</th></tr></thead><tbody id="backupRows"></tbody></table></div>
+</div>
+</section>
+<section id="page-users" class="hidden">
+<div class="heading"><div><h1>Gestão de usuários</h1><div class="muted">Crie contas individuais, defina perfis e controle o acesso ao CRM.</div></div><button class="btn" onclick="openUserCreate()">+ Novo usuário</button></div>
+<div class="notice">Administrador: pode gerenciar usuários e acessar todas as áreas. Operador: pode consultar e atualizar clientes e demandas, mas não gerencia contas.</div>
+<div class="panel"><div class="tablewrap"><table style="min-width:720px"><thead><tr><th>Usuário</th><th>Perfil</th><th>Status</th><th>Criado em</th><th>Ações</th></tr></thead><tbody id="userRows"></tbody></table></div></div>
+</section>
+<section id="page-password" class="hidden">
+<div class="heading"><div><h1>Alterar minha senha</h1><div class="muted">Atualize sua senha de acesso ao CRM.</div></div></div>
+<div class="panel" style="max-width:620px"><form id="changePasswordForm" class="formgrid">
+<div class="full"><label>Senha atual</label><input class="field" type="password" name="currentPassword" autocomplete="current-password" required></div>
+<div><label>Nova senha</label><input class="field" type="password" name="newPassword" minlength="6" autocomplete="new-password" required></div>
+<div><label>Confirmar nova senha</label><input class="field" type="password" name="confirmPassword" minlength="6" autocomplete="new-password" required></div>
+<div class="full notice">Use no mínimo 6 caracteres. Evite senhas reutilizadas.</div><div class="full actions"><button class="btn">Salvar nova senha</button></div><p id="passwordResult" class="full muted"></p>
+</form></div>
+</section>
+</div></main></div>
+<div id="modal"  class="hidden" style="position:fixed;inset:0;background:#0b1b2e88;display:grid;place-items:center;padding:16px;z-index:5"><div class="panel" style="width:min(680px,100%);max-height:92vh;overflow:auto"><div style="display:flex;justify-content:space-between;align-items:center"><h3 id="modalTitle">Cadastro</h3><button class="btn secondary" onclick="closeModal()">Fechar</button></div><form id="modalForm"><div id="modalFields" class="formgrid"></div><div class="actions"><button type="button" class="btn secondary" onclick="closeModal()">Cancelar</button><button class="btn">Salvar</button></div><p id="modalError" style="color:#b42318"></p></form></div></div>
+<script>
+let DATA={clients:[],demands:[],events:[]};let CURRENT_USER=null;const $=id=>document.getElementById(id);const statuses=['Aberta','Em análise','Encaminhada','Em andamento','Aguardando retorno','Concluída','Cancelada'];const priorities=['Baixa','Média','Alta','Urgente'];
+async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{'Content-Type':'application/json',...(opts.headers||{})}});const d=await r.json();if(!r.ok)throw Error(d.error||'Erro');return d}
+$('loginForm').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);try{await api('/api/login',{method:'POST',body:JSON.stringify({username:f.get('username'),password:f.get('password')})});await start()}catch(err){$('loginError').textContent=err.message}};
+async function start(){try{const me=await api('/api/me');CURRENT_USER=me.user;$('login').classList.add('hidden');$('app').classList.remove('hidden');$('currentUserLabel').textContent=CURRENT_USER.username+' • '+(CURRENT_USER.role==='admin'?'Administrador':'Operador');$('usersNav').classList.toggle('hidden',CURRENT_USER.role!=='admin');await refresh();if(CURRENT_USER.mustChangePassword){showPage('password');$('passwordResult').textContent='Por segurança, altere sua senha antes de continuar.';}else showPage('dashboard')}catch{$('login').classList.remove('hidden');$('app').classList.add('hidden')}}
+$('logout').onclick=async()=>{await api('/api/logout',{method:'POST',body:'{}'});location.reload()};async function refresh(){DATA=await api('/api/data');render()}
+function showPage(p){if(p==='users'&&CURRENT_USER?.role!=='admin'){alert('Acesso restrito a administradores.');return;}if(CURRENT_USER?.mustChangePassword&&p!=='password'){alert('Altere sua senha antes de continuar.');p='password';}document.querySelectorAll('[id^="page-"]').forEach(x=>x.classList.add('hidden'));$('page-'+p).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));$('pageTitle').textContent=({dashboard:'Dashboard',clients:'Clientes',demands:'Demandas',intake:'Formulário público',backup:'Backup e Segurança',users:'Gestão de usuários',password:'Alterar minha senha'})[p];if(p==='backup')loadBackups();if(p==='users')loadUsers()}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));function client(id){return DATA.clients.find(c=>c.id===id)||{name:'Cliente não encontrado'}}function date(v){return v?new Date(v).toLocaleDateString('pt-BR'):'—'}function pill(s){let cls=s==='Concluída'?'done':s==='Urgente'?'urgent':['Aguardando retorno','Em análise'].includes(s)?'wait':'';return `<span class="pill ${cls}">${esc(s||'—')}</span>`}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+
+function renderRegionalDashboard(){
+ const regions=[
+  {name:'Praias da Baía',bairros:['Centro','São Domingos','Ingá','Icaraí','Vital Brazil','Santa Rosa','Pé Pequeno','Fátima','Boa Viagem','São Francisco','Charitas','Jurujuba','Gragoatá']},
+  {name:'Região Norte',bairros:['Barreto','Engenhoca','Fonseca','Santana','Ilha da Conceição','Baldeador','Caramujo','Tenente Jardim']},
+  {name:'Região Oceânica',bairros:['Itaipu','Itacoatiara','Camboinhas','Piratininga','Cafubá','Jacaré','Engenho do Mato','Maravista','Santo Antônio','Serra Grande','Jardim Imbuí']},
+  {name:'Pendotiba',bairros:['Badu','Cantagalo','Ititioca','Largo da Batalha','Maceió','Maria Paula','Matapaca','Sapê','Vila Progresso']},
+  {name:'Região Leste',bairros:['Muriqui','Rio do Ouro','Várzea das Moças']}
+ ];
+ const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/\s+/g,' ');
+ const lookup={};regions.forEach((r,i)=>r.bairros.forEach(b=>lookup[norm(b)]=i));
+ const counts=regions.map(()=>({clients:0,demands:0}));
+ let otherClients=0,otherDemands=0;
+ DATA.clients.forEach(c=>{const i=lookup[norm(c.neighborhood)];if(i===undefined)otherClients++;else counts[i].clients++;});
+ DATA.demands.forEach(d=>{const c=client(d.clientId);const i=lookup[norm(d.neighborhood||c.neighborhood||'')];if(i===undefined)otherDemands++;else counts[i].demands++;});
+ const rows=regions.map((r,i)=>({name:r.name,...counts[i]}));
+ rows.push({name:'Não informado / outros',clients:otherClients,demands:otherDemands});
+ const colors=['#2563eb','#0f9d78','#f59e0b','#8b5cf6','#e05a6f','#64748b'];
+ const pie=key=>{
+  const total=rows.reduce((s,r)=>s+r[key],0);
+  if(!total)return '<div class="muted" style="padding:35px;text-align:center">Ainda não há registros para exibir.</div>';
+  let pos=0;
+  const slices=rows.map((r,i)=>{const p=r[key]/total*100;const s=`${colors[i]} ${pos}% ${pos+p}%`;pos+=p;return s;});
+  return `<div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap"><div style="width:180px;height:180px;border-radius:50%;background:conic-gradient(${slices.join(',')});position:relative;flex:0 0 180px"><div style="position:absolute;inset:40px;border-radius:50%;background:var(--card,#fff);display:flex;flex-direction:column;align-items:center;justify-content:center"><b style="font-size:25px">${total}</b><span class="muted" style="font-size:11px">total</span></div></div><div style="display:grid;gap:8px;min-width:155px;flex:1">${rows.map((r,i)=>`<div style="display:flex;align-items:center;gap:7px;font-size:12px"><span style="width:10px;height:10px;border-radius:3px;background:${colors[i]}"></span><span style="flex:1">${esc(r.name)}</span><b>${r[key]} (${(r[key]/total*100).toFixed(1).replace('.',',')}%)</b></div>`).join('')}</div></div>`;
+ };
+ const max=Math.max(1,...rows.map(r=>r.demands));
+ $('regionalDashboard').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:18px"><div style="background:#f5f8fc;padding:14px;border-radius:10px"><div class="muted">Clientes cadastrados</div><strong style="font-size:24px">${DATA.clients.length}</strong></div><div style="background:#f5f8fc;padding:14px;border-radius:10px"><div class="muted">Demandas registradas</div><strong style="font-size:24px">${DATA.demands.length}</strong></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px"><section style="padding:16px;border:1px solid var(--border,#e5e7eb);border-radius:12px"><h4 style="margin:0 0 15px">Clientes por região</h4>${pie('clients')}</section><section style="padding:16px;border:1px solid var(--border,#e5e7eb);border-radius:12px"><h4 style="margin:0 0 15px">Demandas por região</h4>${rows.map((r,i)=>`<div style="margin:0 0 14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>${esc(r.name)}</span><b>${r.demands}</b></div><div style="height:16px;background:#edf1f6;border-radius:8px;overflow:hidden"><div style="height:100%;width:${r.demands/max*100}%;background:${colors[i]};border-radius:8px"></div></div></div>`).join('')}</section></div><div class="muted" style="font-size:12px;margin-top:14px">Gráficos atualizados com os dados do CRM. Bairros sem mapeamento ou sem informação aparecem em “Não informado / outros”.</div>`;
+}
+
+function render(){const ds=DATA.demands;const open=ds.filter(d=>!['Concluída','Cancelada'].includes(d.status)).length;const done=ds.filter(d=>d.status==='Concluída').length;const urgent=ds.filter(d=>d.priority==='Urgente'&&!['Concluída','Cancelada'].includes(d.status)).length;$('metrics').innerHTML=[['Clientes cadastrados',DATA.clients.length,'♙'],['Demandas registradas',ds.length,'▤'],['Em aberto',open,'◷'],['Concluídas',done,'✓']].map(x=>`<div class="card"><div class="muted">${x[2]}　${x[0]}</div><div class="metric">${x[1]}</div><div class="metriclabel">${x[0]==='Em aberto'?urgent+' urgentes em aberto':'Atualizado agora'}</div></div>`).join('');renderRegionalDashboard();$('recentRows').innerHTML=ds.slice(0,8).map(d=>`<tr><td><b>${esc(d.number)}</b></td><td>${esc(client(d.clientId).name)}</td><td>${esc(d.category)}</td><td>${esc(d.neighborhood||'—')}</td><td>${pill(d.status)}</td><td>${pill(d.priority)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Nenhuma demanda cadastrada.</td></tr>';
+const q=($('clientSearch').value||'').toLowerCase();$('clientRows').innerHTML=DATA.clients.filter(c=>(c.name+c.phone+c.neighborhood).toLowerCase().includes(q)).map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${esc(c.phone)}</td><td>${esc(c.email||'—')}</td><td>${esc(c.neighborhood||'—')}</td><td>${date(c.createdAt)}</td><td>${ds.filter(d=>d.clientId===c.id).length}</td><td><button class="btn secondary" onclick="editClient('${c.id}')">Alterar</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Nenhum cliente encontrado.</td></tr>';
+const dq=($('demandSearch').value||'').toLowerCase(),sf=$('statusFilter').value;$('demandRows').innerHTML=ds.filter(d=>(!sf||d.status===sf)&&(d.number+client(d.clientId).name+d.category+d.neighborhood+(d.colabTicket||'')+(d.ecigaTicket||'')+(d.requestingDepartment||'')).toLowerCase().includes(dq)).map(d=>`<tr><td><b>${esc(d.number)}</b><br><small class="muted">${date(d.createdAt)}</small>${d.colabTicket?`<br><small>COLAB: ${esc(d.colabTicket)}</small>`:''}${d.ecigaTicket?`<br><small>eCiga: ${esc(d.ecigaTicket)}</small>`:''}</td><td>${esc(client(d.clientId).name)}<br><small class="muted">${esc(d.category)}</small></td><td>${esc(d.department||'A definir')}</td><td>${esc(d.neighborhood||'—')}</td><td>${pill(d.status)}</td><td>${pill(d.priority)}</td><td><div class="rowactions"><select onchange="updateDemand('${d.id}','status',this.value)">${statuses.map(s=>`<option ${d.status===s?'selected':''}>${s}</option>`).join('')}</select><select onchange="updateDemand('${d.id}','priority',this.value)">${priorities.map(s=>`<option ${d.priority===s?'selected':''}>${s}</option>`).join('')}</select><button class="btn secondary" onclick="viewDemand('${d.id}')">Exibir</button><button class="btn secondary" onclick="editDemand('${d.id}')">Alterar</button></div></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Nenhuma demanda encontrada.</td></tr>';$('publicUrl').textContent=location.origin+'/cadastro'}
+['clientSearch','demandSearch','statusFilter'].forEach(x=>$(x).addEventListener('input',render));
+function parseCSV(text){text=text.replace(/^\uFEFF/,'');const first=text.split(/\r?\n/,1)[0]||'';const delim=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const ch=text[i];if(ch==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(ch===delim&&!quoted){row.push(cell);cell='';}else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);row=[];cell='';}else cell+=ch;}row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);if(rows.length<2)throw Error('A planilha precisa ter cabeçalho e pelo menos uma linha.');const headers=rows.shift().map(x=>x.trim());return rows.map(cols=>Object.fromEntries(headers.map((h,i)=>[h,(cols[i]||'').trim()])))}
+$('importFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;const out=$('importResult');out.textContent='Lendo planilha...';try{if(!file.name.toLowerCase().endsWith('.csv'))throw Error('Salve sua planilha do Excel como CSV UTF-8 antes de importar.');const rows=parseCSV(await file.text());const preview=rows.slice(0,3).map(r=>r['Nome']||r['Nome do cliente']||r['Cliente']||'Linha sem nome').join(', ');if(!confirm(`Foram encontradas ${rows.length} linhas. Exemplos: ${preview}. Deseja importar?`))return;const result=await api('/api/import',{method:'POST',body:JSON.stringify({rows})});out.textContent=`Importação concluída: ${result.clientsCreated} clientes novos, ${result.demandsCreated} demandas e ${result.skipped} linhas ignoradas.`+(result.errors.length?' Verifique os avisos no console do navegador.':'');if(result.errors.length)console.warn('Linhas não importadas:',result.errors);await refresh();}catch(err){out.textContent='Erro na importação: '+err.message;}finally{e.target.value='';}});
+function openModal(title,fields,submit){$('modalTitle').textContent=title;$('modalFields').innerHTML=fields;$('modalError').textContent='';$('modal').classList.remove('hidden');$('modalForm').onsubmit=async e=>{e.preventDefault();const b=Object.fromEntries(new FormData(e.target));try{await submit(b);closeModal();await refresh()}catch(err){$('modalError').textContent=err.message}}}function closeModal(){$('modal').classList.add('hidden')}
+function input(name,label,placeholder='',full=false,type='text'){return `<div class="${full?'full':''}"><label>${label}</label><input class="field" name="${name}" placeholder="${placeholder}" ${type==='email'?'type="email"':''} ${type==='tel'?'type="tel"':''}></div>`}function select(name,label,opts,full=false){return `<div class="${full?'full':''}"><label>${label}</label><select class="field" name="${name}">${opts.map(x=>`<option>${x}</option>`).join('')}</select></div>`}
+function openClient(){openModal('Cadastrar cliente',input('name','Nome completo *','Nome do cidadão')+input('phone','Celular / WhatsApp *','(21) 99999-9999')+input('email','E-mail','email@exemplo.com',false,'email')+input('address','Endereço','Rua / Avenida')+input('addressNumber','Nº','Número')+input('neighborhood','Bairro','Bairro')+input('cep','CEP','00000-000')+input('institution','Instituição ou Organização Social','Nome da instituição',true),async b=>{await api('/api/clients',{method:'POST',body:JSON.stringify(b)})})}
+function editClient(clientId){const c=DATA.clients.find(x=>x.id===clientId);if(!c)return;const field=(name,label,value,full=false,type='text')=>`<div class="${full?'full':''}"><label>${label}</label><input class="field" name="${name}" value="${esc(value||'')}" ${type==='email'?'type="email"':''}></div>`;openModal('Alterar dados do cliente',field('name','Nome completo *',c.name)+field('phone','Celular / WhatsApp *',c.phone)+field('email','E-mail',c.email,false,'email')+field('address','Endereço',c.address)+field('addressNumber','Nº',c.addressNumber)+field('neighborhood','Bairro',c.neighborhood)+field('cep','CEP',c.cep)+field('institution','Instituição ou Organização Social',c.institution,true),async b=>{await api('/api/clients/'+clientId,{method:'PATCH',body:JSON.stringify(b)})})}
+function openDemand(){const opts=DATA.clients.map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.phone)}</option>`).join('');openModal('Registrar demanda',`<div class="full"><label>Cliente *</label><select class="field" name="clientId" required>${opts}</select></div>${select('category','Categoria',['Iluminação pública','Limpeza urbana','Buracos e pavimentação','Saneamento e esgoto','Saúde','Educação','Transporte e trânsito','Fiscalização','Meio ambiente','Assistência social','Obras públicas','Outros'])}${select('priority','Prioridade',priorities)}${input('neighborhood','Bairro','Bairro')}${input('location','Local da ocorrência','Rua / Avenida')}${input('locationNumber','Número','Número do local')}${input('neighborhood','Bairro da ocorrência','Bairro')}${input('department','Órgão / Secretaria','A definir')}${input('requestingDepartment','Órgão ou Departamento Solicitante','Departamento solicitante')}${input('colabTicket','Chamado COLAB Nº','Número COLAB')}${input('ecigaTicket','Chamado eCiga','Número eCiga')}${input('protocol','Protocolo oficial','Se houver') }<div class="full"><label>Descrição *</label><textarea class="field" name="description" rows="4" required></textarea></div>${select('status','Status',statuses)}`,async b=>{await api('/api/demands',{method:'POST',body:JSON.stringify(b)})})}
+function viewDemand(demandId){
+ const d=DATA.demands.find(x=>x.id===demandId);if(!d)return;
+ const c=client(d.clientId);
+ const row=(label,value)=>`<div><label>${label}</label><div class="field" style="min-height:38px;background:#f8fafc">${esc(value||'—')}</div></div>`;
+ const wide=(label,value)=>`<div class="full"><label>${label}</label><div class="field" style="min-height:54px;white-space:pre-wrap;background:#f8fafc">${esc(value||'—')}</div></div>`;
+ openModal('Detalhes da demanda '+(d.number||''),[
+ row('Protocolo / Número',d.number),
+ row('Data de abertura',date(d.createdAt)),
+ row('Cliente',c.name),
+ row('Telefone / WhatsApp',c.phone),
+ row('E-mail',c.email),
+ row('Assunto',d.category),
+ row('Status',d.status),
+ row('Prioridade',d.priority),
+ row('Órgão responsável / Secretaria',d.department),
+ row('Órgão ou Departamento Solicitante',d.requestingDepartment),
+ row('Local da ocorrência',d.location),
+ row('Número do local',d.locationNumber),
+ row('Bairro',d.neighborhood),
+ row('Chamado COLAB',d.colabTicket),
+ row('Chamado eCiga',d.ecigaTicket),
+ row('Protocolo oficial',d.protocol),
+ wide('Descrição da solicitação',d.description)
+ ].join(''),async()=>{});
+ $('modalForm').querySelector('button.btn:not(.secondary)').style.display='none';
+ const cancel=$('modalForm').querySelector('button[onclick="closeModal()"]');if(cancel)cancel.textContent='Fechar';
+}
+function editDemand(demandId){
+ const d=DATA.demands.find(x=>x.id===demandId);if(!d)return;
+ const clientOptions=DATA.clients.map(c=>`<option value="${esc(c.id)}" ${c.id===d.clientId?'selected':''}>${esc(c.name)} — ${esc(c.phone)}</option>`).join('');
+ const field=(name,label,value,full=false,type='text')=>`<div class="${full?'full':''}"><label>${label}</label><input class="field" name="${name}" value="${esc(value||'')}" type="${type}"></div>`;
+ const pick=(name,label,values,value,full=false)=>`<div class="${full?'full':''}"><label>${label}</label><select class="field" name="${name}">${values.map(v=>`<option value="${esc(v)}" ${v===value?'selected':''}>${esc(v)}</option>`).join('')}</select></div>`;
+ const categories=['Iluminação pública','Limpeza urbana','Buracos e pavimentação','Saneamento e esgoto','Saúde','Educação','Transporte e trânsito','Fiscalização','Meio ambiente','Assistência social','Obras públicas','Outros'];
+ openModal('Alterar demanda '+esc(d.number),
+ `<div class="full"><label>Cliente vinculado *</label><select class="field" name="clientId" required>${clientOptions}</select></div>
+ ${pick('category','Assunto da solicitação',categories,d.category)}
+ ${pick('priority','Prioridade',priorities,d.priority)}
+ ${pick('status','Status',statuses,d.status)}
+ ${field('location','Local da ocorrência',d.location)}
+ ${field('locationNumber','Número do local',d.locationNumber)}
+ ${field('neighborhood','Bairro da ocorrência',d.neighborhood)}
+ ${field('department','Órgão responsável / Secretaria',d.department)}
+ ${field('requestingDepartment','Órgão ou Departamento Solicitante',d.requestingDepartment)}
+ ${field('colabTicket','Chamado COLAB Nº',d.colabTicket)}
+ ${field('ecigaTicket','Chamado eCiga',d.ecigaTicket)}
+ ${field('protocol','Protocolo oficial',d.protocol)}
+ <div class="full"><label>Descrição da solicitação *</label><textarea class="field" name="description" rows="4" required>${esc(d.description||'')}</textarea></div>`,
+ async b=>{await api('/api/demands/'+demandId,{method:'PATCH',body:JSON.stringify(b)})});
+}
+async function updateDemand(id,key,value){try{await api('/api/demands/'+id,{method:'PATCH',body:JSON.stringify({[key]:value})});await refresh()}catch(e){alert(e.message)}}
+function csv(rows,filename){const text='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));a.download=filename;a.click();URL.revokeObjectURL(a.href)}function exportClients(){csv([['Nome','Telefone','Email','Endereço','Nº','Bairro','CEP','Instituição ou Organização Social','Cadastro'],...DATA.clients.map(c=>[c.name,c.phone,c.email,c.address,c.addressNumber,c.neighborhood,c.cep,c.institution,date(c.createdAt)])],'clientes-niteroi.csv')}function exportDemands(){csv([['Número interno','Cliente','Telefone','Assunto da solicitação','Descrição','Local da ocorrência','Número do local','Bairro da ocorrência','Chamado COLAB Nº','Chamado eCiga','Órgão ou Departamento Solicitante','Órgão responsável','Protocolo oficial','Prioridade','Status','Abertura'],...DATA.demands.map(d=>[d.number,client(d.clientId).name,client(d.clientId).phone,d.category,d.description,d.location,d.locationNumber,d.neighborhood,d.colabTicket,d.ecigaTicket,d.requestingDepartment,d.department,d.protocol,d.priority,d.status,date(d.createdAt)])],'demandas-niteroi.csv')}function copyPublic(){navigator.clipboard.writeText(location.origin+'/cadastro').then(()=>alert('Endereço copiado.')).catch(()=>alert(location.origin+'/cadastro'))}
+
+async function loadUsers(){
+ try{const r=await api('/api/users');$('userRows').innerHTML=r.users.map(u=>`<tr><td><b>${esc(u.username)}</b></td><td>${u.role==='admin'?'Administrador':'Operador'}</td><td>${u.active?'<span class="pill done">Ativo</span>':'<span class="pill urgent">Inativo</span>'}${u.mustChangePassword?'<br><small class="muted">Aguardando troca de senha</small>':''}</td><td>${date(u.createdAt)}</td><td><div class="rowactions"><button class="btn secondary" onclick="resetUserPassword('${u.id}','${esc(u.username)}')">Redefinir senha</button><button class="btn secondary" onclick="toggleUser('${u.id}',${!u.active})">${u.active?'Desativar':'Ativar'}</button><button class="btn secondary" onclick="changeUserRole('${u.id}','${u.role==='admin'?'operator':'admin'}')">${u.role==='admin'?'Tornar operador':'Tornar administrador'}</button><button class="btn danger" onclick="deleteUser('${u.id}','${esc(u.username)}')">Excluir</button></div></td></tr>`).join('')||'<tr><td colspan="5" class="empty">Nenhum usuário cadastrado.</td></tr>'}
+ catch(e){$('userRows').innerHTML=`<tr><td colspan="5">${esc(e.message)}</td></tr>`}
+}
+async function openUserCreate(){
+ const username=prompt('Nome de usuário (3 a 60 caracteres):');if(username===null)return;
+ const password=prompt('Senha inicial (mínimo de 6 caracteres):');if(password===null)return;
+ const role=confirm('Criar como ADMINISTRADOR?\n\nOK = Administrador\nCancelar = Operador')?'admin':'operator';
+ try{await api('/api/users',{method:'POST',body:JSON.stringify({username,password,role})});alert('Usuário criado. Ele deverá alterar a senha no primeiro acesso.');await loadUsers()}
+ catch(e){alert(e.message)}
+}
+async function resetUserPassword(uid,username){
+ const password=prompt('Informe a nova senha temporária para '+username+' (mínimo de 6 caracteres):');if(password===null)return;
+ try{await api('/api/users/'+uid,{method:'PATCH',body:JSON.stringify({password})});alert('Senha redefinida. O usuário deverá alterá-la no próximo acesso.');await loadUsers()}
+ catch(e){alert(e.message)}
+}
+async function toggleUser(uid,active){
+ try{await api('/api/users/'+uid,{method:'PATCH',body:JSON.stringify({active})});await loadUsers()}
+ catch(e){alert(e.message)}
+}
+async function changeUserRole(uid,role){
+ if(!confirm('Confirma alterar o perfil deste usuário?'))return;
+ try{await api('/api/users/'+uid,{method:'PATCH',body:JSON.stringify({role})});await loadUsers()}
+ catch(e){alert(e.message)}
+}
+async function deleteUser(uid,username){
+ if(!confirm('Tem certeza que deseja excluir o usuário "'+username+'" permanentemente? Esta ação não pode ser desfeita.'))return;
+ try{await api('/api/users/'+uid,{method:'DELETE'});alert('Usuário excluído com sucesso.');await loadUsers()}
+ catch(e){alert(e.message)}
+}
+$('changePasswordForm').onsubmit=async e=>{
+ e.preventDefault();const b=Object.fromEntries(new FormData(e.target));
+ try{const r=await api('/api/change-password',{method:'POST',body:JSON.stringify(b)});CURRENT_USER=r.user;$('currentUserLabel').textContent=CURRENT_USER.username+' • '+(CURRENT_USER.role==='admin'?'Administrador':'Operador');$('passwordResult').textContent='Senha alterada com sucesso.';e.target.reset();if(!CURRENT_USER.mustChangePassword)setTimeout(()=>showPage('dashboard'),600)}
+ catch(err){$('passwordResult').textContent=err.message}
+};
+async function loadBackups(){
+  try{
+    const r=await api('/api/backups');
+    $('backupClients').textContent=DATA.clients.length;
+    $('backupDemands').textContent=DATA.demands.length;
+    $('backupLast').textContent=r.backups[0]?new Date(r.backups[0].createdAt).toLocaleString('pt-BR'):'—';
+    $('backupRows').innerHTML=r.backups.map(b=>`<tr><td><b>${esc(b.file)}</b></td><td>${new Date(b.createdAt).toLocaleString('pt-BR')}</td><td>${esc(b.reason||'—')}</td><td>${b.clients??'—'}</td><td>${b.demands??'—'}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Nenhum backup disponível.</td></tr>';
+  }catch(e){$('backupRows').innerHTML=`<tr><td colspan="5">${esc(e.message)}</td></tr>`}
+}
+async function createBackupNow(){
+  try{const r=await api('/api/backups',{method:'POST',body:'{}'});alert('Backup criado: '+r.file);await loadBackups();}
+  catch(e){alert('Não foi possível criar o backup: '+e.message)}
+}
+async function downloadBackup(){
+  try{
+    const response=await fetch('/api/backups/download');
+    if(!response.ok){const e=await response.json();throw Error(e.error||'Falha no download')}
+    const blob=await response.blob(),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='crm-niteroi-backup.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);await loadBackups();
+  }catch(e){alert('Erro ao baixar backup: '+e.message)}
+}
+async function restoreBackup(){
+  const file=$('restoreFile').files[0],out=$('restoreResult');
+  if(!file){out.textContent='Selecione um arquivo JSON.';return}
+  if(file.size>25*1024*1024){out.textContent='Arquivo excede o limite de 25 MB.';return}
+  if(!confirm('A restauração substituirá os dados atuais pelos dados do arquivo. O CRM criará um backup do banco atual antes de continuar. Deseja prosseguir?'))return;
+  try{
+    const data=JSON.parse(await file.text());
+    const result=await api('/api/backups/restore',{method:'POST',body:JSON.stringify({data})});
+    out.textContent=`Restauração concluída: ${result.clients} clientes e ${result.demands} demandas.`;
+    $('restoreFile').value='';await refresh();await loadBackups();
+  }catch(e){out.textContent='Não foi possível restaurar: '+e.message}
+}
+
+start();
+</script></body></html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cadastro de solicitação | CRM Niterói</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef3f8;color:#17283d;font:15px Inter,system-ui,Arial;position:relative;isolation:isolate}.wrap{max-width:800px;margin:35px auto;padding:0 16px}.header{background:linear-gradient(rgba(15,43,72,.66),rgba(15,43,72,.76)),url('/fundo-niteroi.jpg') center 48%/cover no-repeat;color:white;padding:25px 28px;border-radius:15px 15px 0 0}.header h1{margin:0 0 7px;font-size:23px}.header p{margin:0;color:#d1deeb;font-size:13px}.form{background:rgba(255,255,255,.94);backdrop-filter:blur(2px);padding:26px 28px;border:1px solid #e1e8f0;border-radius:0 0 15px 15px;box-shadow:0 12px 35px #1836550b}.section{font-size:14px;font-weight:800;margin:5px 0 15px;color:#24496e}.subsection{font-size:12px;font-weight:750;color:#55708d;margin:3px 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:650;color:#4c5f73;margin:0 0 6px}.field{width:100%;border:1px solid #d5deea;border-radius:8px;padding:11px 12px;font:inherit;background:white;color:#17283d}.field:focus{outline:2px solid #b8d5f3;border-color:#3475b9}.hint{font-size:11px;color:#718096;margin-top:5px}.line{border:0;border-top:1px solid #edf1f5;margin:22px 0}.check{display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.5;color:#536579}.check input{margin-top:3px}.btn{border:0;border-radius:8px;background:#2363a5;color:white;padding:13px 18px;font-weight:750;font-size:14px;cursor:pointer;width:100%;margin-top:18px}.btn:disabled{opacity:.5;cursor:not-allowed}.privacy{font-size:11px;line-height:1.55;color:#718096;margin-top:15px}.success{display:none;background:#e8f7ef;border:1px solid #bce7d0;color:#176344;padding:17px;border-radius:10px;margin-top:15px}.error{color:#b42318;font-size:12px;margin-top:12px}.footer{text-align:center;color:#7a8a9c;font-size:11px;margin:18px}@media(max-width:600px){.wrap{margin:0 auto;padding:0}.header,.form{border-radius:0;padding:22px 18px}.grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body><div class="wrap">
+<header class="header"><h1>Cadastro de solicitação</h1><p>CRM de atendimento • Município de Niterói</p></header>
+<form class="form" id="form">
+<div class="section">1. Identificação do solicitante</div>
+<div class="grid">
+<div class="full"><label>Nome completo *</label><input class="field" name="name" maxlength="140" required autocomplete="name" placeholder="Informe seu nome completo"></div>
+<div><label>Telefone / WhatsApp *</label><input class="field" name="phone" maxlength="40" required autocomplete="tel" placeholder="(21) 99999-9999"></div>
+<div><label>E-mail</label><input class="field" name="email" maxlength="160" type="email" autocomplete="email" placeholder="seuemail@exemplo.com"></div>
+<div><label>CEP</label><input class="field" id="cep" name="cep" maxlength="9" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" aria-describedby="cepStatus"><div class="hint" id="cepStatus" aria-live="polite">Digite o CEP para preencher endereço e bairro automaticamente.</div></div>
+<div><label>Endereço</label><input class="field" id="address" name="address" maxlength="220" autocomplete="street-address" placeholder="Rua, avenida, praça..."></div>
+<div><label>Nº</label><input class="field" name="addressNumber" maxlength="30" placeholder="Número"></div>
+<div><label>Bairro</label><input class="field" id="neighborhood" name="neighborhood" maxlength="100" autocomplete="address-level3" placeholder="Bairro do solicitante"></div>
+<div class="full"><label>Instituição ou Organização Social</label><input class="field" name="institution" maxlength="180" placeholder="Nome da instituição ou organização, se aplicável"></div>
+</div>
+<hr class="line">
+<div class="section">2. Detalhes da demanda</div>
+<div class="grid">
+<div class="full"><label>Assunto da solicitação *</label><select class="field" name="category" required><option value="">Selecione o assunto</option><option>Iluminação pública</option><option>Limpeza urbana</option><option>Buracos e pavimentação</option><option>Saneamento e esgoto</option><option>Saúde</option><option>Educação</option><option>Transporte e trânsito</option><option>Fiscalização</option><option>Meio ambiente</option><option>Assistência social</option><option>Obras públicas</option><option>Outros</option></select></div>
+<div class="full"><div class="subsection">Endereço do local da ocorrência</div></div>
+<div><label>Local da ocorrência</label><input class="field" name="location" maxlength="220" placeholder="Rua, avenida, praça..."></div>
+<div><label>Número</label><input class="field" name="locationNumber" maxlength="30" placeholder="Número do local"></div>
+<div><label>Bairro</label><input class="field" name="demandNeighborhood" maxlength="100" placeholder="Bairro da ocorrência"></div>
+<div class="full"><label>Descreva sua solicitação *</label><textarea class="field" name="description" rows="5" maxlength="3000" required placeholder="Explique o que aconteceu e o que precisa ser verificado."></textarea><div class="hint">Não inclua dados pessoais sensíveis ou informações médicas neste campo.</div></div>
+</div>
+<hr class="line">
+<div class="section">3. Detalhamento COLAB</div>
+<div class="grid">
+<div><label>Chamado COLAB Nº</label><input class="field" name="colabTicket" maxlength="100" placeholder="Número do chamado COLAB"></div>
+<div><label>Chamado eCiga</label><input class="field" name="ecigaTicket" maxlength="100" placeholder="Número do chamado eCiga"></div>
+<div class="full"><label>Órgão ou Departamento Solicitante</label><input class="field" name="requestingDepartment" maxlength="160" placeholder="Informe o órgão ou departamento solicitante"></div>
+</div>
+<hr class="line">
+<label class="check"><input type="checkbox" name="consent" required><span>Li o aviso de privacidade e estou ciente de que os dados informados serão utilizados para registrar, analisar e acompanhar esta solicitação, conforme a legislação aplicável. *</span></label>
+<button class="btn" id="submit">Enviar solicitação</button><div class="error" id="error"></div><div class="success" id="success"></div>
+<p class="privacy">Este formulário é um canal de registro do CRM e não representa, por si só, protocolo oficial da Prefeitura de Niterói, nem substitui os canais oficiais de atendimento. Após o envio, a equipe responsável poderá analisar e encaminhar a solicitação. Para emergências, utilize os serviços públicos oficiais adequados.</p>
+</form><div class="footer">CRM Niterói • Formulário de entrada de demandas</div></div>
+<script>
+const form=document.getElementById('form'),btn=document.getElementById('submit');
+const cepInput=document.getElementById('cep');
+const cepStatus=document.getElementById('cepStatus');
+let lastCepLookup='';
+cepInput.addEventListener('input',()=>{
+  const digits=cepInput.value.replace(/\D/g,'').slice(0,8);
+  cepInput.value=digits.length>5?digits.slice(0,5)+'-'+digits.slice(5):digits;
+  if(digits.length!==8){cepStatus.textContent='Digite os 8 números do CEP para buscar o endereço.';lastCepLookup='';}
+});
+async function buscarEnderecoPorCep(){
+  const cep=cepInput.value.replace(/\D/g,'');
+  if(cep.length!==8){cepStatus.textContent='Informe um CEP válido com 8 números.';return;}
+  if(lastCepLookup===cep)return;
+  cepStatus.textContent='Consultando CEP...';
+  try{
+    const response=await fetch('https://viacep.com.br/ws/'+cep+'/json/');
+    if(!response.ok)throw new Error('Falha na consulta. Tente novamente.');
+    const data=await response.json();
+    if(data.erro)throw new Error('CEP não encontrado. Confira os números.');
+    document.getElementById('address').value=data.logradouro||'';
+    document.getElementById('neighborhood').value=data.bairro||'';
+    lastCepLookup=cep;
+    cepStatus.textContent='Endereço preenchido automaticamente. Confira os dados e informe o número.';
+  }catch(error){cepStatus.textContent=error.message||'Não foi possível consultar o CEP. Preencha o endereço manualmente.';}
+}
+cepInput.addEventListener('blur',buscarEnderecoPorCep);
+cepInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();buscarEnderecoPorCep();}});
+form.addEventListener('submit',async e=>{e.preventDefault();btn.disabled=true;btn.textContent='Enviando...';document.getElementById('error').textContent='';document.getElementById('success').style.display='none';const f=new FormData(form);const body={name:f.get('name'),phone:f.get('phone'),email:f.get('email'),address:f.get('address'),addressNumber:f.get('addressNumber'),neighborhood:f.get('neighborhood'),cep:f.get('cep'),institution:f.get('institution'),category:f.get('category'),location:f.get('location'),locationNumber:f.get('locationNumber'),demandNeighborhood:f.get('demandNeighborhood'),description:f.get('description'),colabTicket:f.get('colabTicket'),ecigaTicket:f.get('ecigaTicket'),requestingDepartment:f.get('requestingDepartment'),consent:f.get('consent')==='on'};
+try{const r=await fetch('/api/public-submission',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error||'Não foi possível enviar.');const box=document.getElementById('success');box.style.display='block';box.textContent='Solicitação recebida! Identificador interno: '+d.number+'. Guarde esse número para referência. Ele não é um protocolo oficial da Prefeitura.';form.reset();}catch(err){document.getElementById('error').textContent=err.message;}finally{btn.disabled=false;btn.textContent='Enviar solicitação';}});
+</script></body></html>
