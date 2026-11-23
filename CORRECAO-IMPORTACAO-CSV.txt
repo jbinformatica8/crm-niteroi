@@ -1,0 +1,17 @@
+CORREÇÃO DA IMPORTAÇÃO CSV - CRM NITERÓI
+
+Causa identificada:
+A função readBody() limitava todas as requisições JSON a aproximadamente 100 KB e chamava req.destroy() ao ultrapassar esse limite. Na importação, o CSV é convertido em JSON no navegador. Planilhas maiores faziam o servidor encerrar a conexão, gerando ERR_CONNECTION_RESET / Failed to fetch.
+
+Correções:
+- Limite geral do corpo JSON: 2 MB.
+- Limite específico da rota POST /api/import: 15 MB.
+- Ao exceder o limite, a API retorna HTTP 413 em JSON, sem derrubar abruptamente a conexão.
+- Erros da API passam a ser registrados no terminal do Node.js e retornados em JSON com status apropriado.
+- A função api() no admin.html lê a resposta como texto e trata JSON inválido de forma explícita.
+- A chamada fetch mantém explicitamente as credenciais same-origin.
+
+Limite funcional existente: até 5.000 linhas por importação.
+
+Observação:
+O pacote não inclui dados reais de clientes/demandas, backups ou arquivo de usuários. Preserve a pasta data/ da instalação atual ao atualizar o sistema. Faça uma cópia de segurança antes de substituir arquivos.

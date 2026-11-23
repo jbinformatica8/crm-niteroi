@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": "6dc23ba5-5cf9-4bd0-8e57-d23153284975",
+      "username": "admin",
+      "role": "admin",
+      "active": true,
+      "salt": "ab10d6b13b44deeeffc6918d5f6e9c1f",
+      "hash": "b42c24d98bf74e10e056925efe252b975ca8047b49710afb4bb8b6b5c92488f3857467ec923626188ba5a3615330d11384980429b9276547d261d2390c491700",
+      "mustChangePassword": false,
+      "createdAt": "2026-11-11T12:44:10.881Z"
+    }
+  ]
+}
